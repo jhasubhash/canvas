@@ -5,8 +5,12 @@ class Loader {
         }
         return Loader.instance;
     }
-
+    initHtmlCanvas(canvas){
+        canvas.height = window.screen.height;
+        canvas.width = window.screen.width;
+    }
     initCanvas(CanvasKit, canvas){
+        this.initHtmlCanvas(canvas);
         // CanvasKit and canvas are provided in this scope.
         const surface = CanvasKit.MakeCanvasSurface(canvas.id);
         if (!surface) {

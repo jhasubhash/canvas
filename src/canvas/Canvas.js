@@ -1,6 +1,7 @@
 import React from 'react';
 import {CanvasModel} from './CanvasModel';
 import logo from '../logo.svg';
+import "./Canvas.css"
 
 export default class Canvas extends React.Component {
     constructor(props) {
@@ -16,8 +17,7 @@ export default class Canvas extends React.Component {
 
     render(){
         return <div>
-        <img src={logo} className="App-logo" alt="logo" />
-        <canvas width="300" height="300" ref={this.canvasRef} />
+        <canvas className="canvas" id="canvas" ref={this.canvasRef} />
         </div>
     }
 }
