@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "86e5a8b27dab5102db56e5fb32859632",
+    "revision": "c90a0e6de23ea45732a4b06529d4e9fd",
     "url": "/canvas/index.html"
   },
   {
-    "revision": "ea8944ac8ba1c1e262fd",
-    "url": "/canvas/static/css/main.5f361e03.chunk.css"
+    "revision": "0758e7645284f51ec698",
+    "url": "/canvas/static/css/main.e5bc77ea.chunk.css"
   },
   {
-    "revision": "0b3cfb8f374adb612c00",
-    "url": "/canvas/static/js/2.13685312.chunk.js"
+    "revision": "2d8dde760be5730131f4",
+    "url": "/canvas/static/js/2.947c0774.chunk.js"
   },
   {
     "revision": "e8b0ae1bd2f59a85f300b3c60c50941a",
-    "url": "/canvas/static/js/2.13685312.chunk.js.LICENSE.txt"
+    "url": "/canvas/static/js/2.947c0774.chunk.js.LICENSE.txt"
   },
   {
     "revision": "5ae4819ec4fa70dd54d86b6c878aa242",
     "url": "/canvas/static/js/canvaskit.wasm"
   },
   {
-    "revision": "ea8944ac8ba1c1e262fd",
-    "url": "/canvas/static/js/main.39f6138c.chunk.js"
+    "revision": "0758e7645284f51ec698",
+    "url": "/canvas/static/js/main.3eff5c8c.chunk.js"
   },
   {
     "revision": "ec0b08bdd34c5eee9f85",
