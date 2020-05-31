@@ -3,6 +3,7 @@ class Loader {
     constructor(){
         if (!Loader.instance){
             Loader.instance = this;
+            this.canvas = null;
         }
         return Loader.instance;
     }
@@ -10,6 +11,7 @@ class Loader {
         canvas.height = window.screen.height;
         canvas.width = window.screen.width;
         canvas.style.cursor = "crosshair";
+        this.canvas = canvas;
     }
 
     initCanvas(CanvasKit, canvas){
@@ -47,6 +49,16 @@ class Loader {
 
     undo(){
         Controller.undo();
+    }
+
+    startPan(){
+        this.canvas.style.cursor = "grab";
+        Controller.startPan();
+    }
+    
+    endPan(){
+        this.canvas.style.cursor = "crosshair";
+        Controller.endPan();
     }
     
 }

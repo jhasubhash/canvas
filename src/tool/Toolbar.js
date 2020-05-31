@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CreateIcon from '@material-ui/icons/Create';
 import PaletteIcon from '@material-ui/icons/Palette';
 import UndoIcon from '@material-ui/icons/Undo';
+import PanToolIcon from '@material-ui/icons/PanTool';
 /*import OpacityIcon from '@material-ui/icons/Opacity';
 import ColorizeIcon from '@material-ui/icons/Colorize';
 import Shape from 'mdi-material-ui/Shape';
@@ -138,9 +139,22 @@ class Toolbar extends React.Component {
     }
 
     handleChange = (event, nextView) => {
-        if(nextView !== null)
+        if(nextView === 'Pan' && this.state.view !== 'Pan')
+            this.handleStartPan();
+        if(nextView !== 'Pan' && this.state.view === 'Pan')
+            this.handleEndPan();
+        if(nextView === 'Color Palette' || nextView === 'Clear Canvas')
+            this.setState({ view: 'Pen'});
+        else if(nextView !== null)
             this.setState({ view: nextView});
     };
+
+    handleStartPan = () =>{
+        this.props.loaderRef.startPan();
+    }
+    handleEndPan = () =>{
+        this.props.loaderRef.endPan();
+    }
 
     render(){
         const { classes } = this.props;
@@ -154,13 +168,14 @@ class Toolbar extends React.Component {
                     exclusive 
                     onChange={this.handleChange}
                 >
-                    <ToggleButton title="Pen" value="Pen" onClick={this.handleStrokeSlider}><CreateIcon/></ToggleButton>
+                    <ToggleButton title="Pen" value="Pen" onClick={this.handleStrokeSlider} ><CreateIcon/></ToggleButton>
                     <ToggleButton title="Eraser" value="Eraser" onClick={this.handleEraserSlider}><Eraser/></ToggleButton>
+                    <ToggleButton title="Pan" value="Pan"><PanToolIcon/></ToggleButton>
                     {/*<Button title="Opacity" onClick={this.handleOpacitySlider}><OpacityIcon/></Button>*/}
-                    <ToggleButton title="Color Palette" onClick={this.handleColorPalette}><PaletteIcon/></ToggleButton>
+                    <ToggleButton title="Color Palette" value="Color Palette" onClick={this.handleColorPalette}><PaletteIcon/></ToggleButton>
                     {/*<Button title="Color Picker"><ColorizeIcon/></Button>
                     <Button title="Shapes"><Shape/></Button>*/}
-                    <ToggleButton title="Clear Canvas" onClick={this.handleClearCanvas} ><DeleteIcon/></ToggleButton>
+                    <ToggleButton title="Clear Canvas" value="Clear Canvas" onClick={this.handleClearCanvas} ><DeleteIcon/></ToggleButton>
                 </ToggleButtonGroup>
                 <ToggleButtonGroup
                     orientation="vertical"

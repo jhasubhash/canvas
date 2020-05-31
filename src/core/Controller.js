@@ -15,6 +15,7 @@ class Controller {
             this.path = null;
             this.strokeColor = {'r':0,'g':0,'b':0,'a':1};
             this.strokeWidth = 1;
+            this.panning = false;
         }
         return Controller.instance;
     }
@@ -61,7 +62,6 @@ class Controller {
     clearCanvas(){
         this.paths = [];
         this.paints = [];
-        this.skcanvas.clear({'r':255,'g':255,'b':255,'a':1});
         this.drawFrame();
     }
 
@@ -70,6 +70,14 @@ class Controller {
             this.paths.pop();
         if(this.paints.length)
             this.paints.pop();
+    }
+
+    startPan(){
+        this.panning = true;
+    }
+
+    endPan(){
+        this.panning = false;
     }
 
     onMouseWheel = (e) => {
@@ -112,9 +120,17 @@ class Controller {
         }
     }
     
+    doPan = (e) => {
+        // TO DO: Pan on mouse move
+    }
+
     onMouseMove = (e) => {
         if (!e.buttons) {
             this.hold = false;
+            return;
+        }
+        if(this.panning){
+            this.doPan(e);
             return;
         }
         let mousex = originx + e.offsetX/scale;
@@ -127,6 +143,8 @@ class Controller {
             let clr = this.strokeColor;
             paint.setColor(this.canvasKit.Color(clr.r, clr.g, clr.b, clr.a));
             paint.setStyle(this.canvasKit.PaintStyle.Stroke);
+            paint.setStrokeCap(this.canvasKit.StrokeCap.Round);
+            paint.setStrokeJoin(this.canvasKit.StrokeJoin.Round);
             paint.setStrokeWidth(this.strokeWidth);
             paint.setPathEffect(this.canvasKit.SkPathEffect.MakeCorner(50));
             this.paints.push(paint);
@@ -139,6 +157,7 @@ class Controller {
 
     drawFrame = ()=>{
         this.canvasKit.setCurrentContext(this.context);
+        this.skcanvas.clear({'r':255,'g':255,'b':255,'a':1});
         for (let i = 0; i < this.paints.length && i < this.paths.length; i++) {
             this.skcanvas.drawPath(this.paths[i], this.paints[i]);
         }
