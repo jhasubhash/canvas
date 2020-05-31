@@ -40,6 +40,10 @@ class Loader {
     getStrokeColor(){
         return Controller.getStrokeColor();
     }
+
+    clearCanvas(){
+        Controller.clearCanvas();
+    }
     
 }
 

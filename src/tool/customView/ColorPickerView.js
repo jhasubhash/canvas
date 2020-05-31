@@ -2,11 +2,12 @@ import React from 'react';
 import { ChromePicker } from 'react-color';
 
 export default class ColorPickerView extends React.Component {
-    color = "#ffffffff";//value.rgb;  
     state = {
-        background: this.color,
+        background: this.props.getLastColor(),
     };
     handleChangeComplete = (color) => {
+        this.props.setLastColor(color.rgb);
+        this.props.loader.setStrokeColor(color.rgb);
         this.setState({ background: color.rgb });
     };
     handleChange = (color, event) => {

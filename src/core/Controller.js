@@ -58,6 +58,13 @@ class Controller {
         this.canvas.addEventListener('wheel', this.onMouseWheel, false);
     }
 
+    clearCanvas(){
+        this.paths = [];
+        this.paints = [];
+        this.skcanvas.clear({'r':255,'g':255,'b':255,'a':1});
+        this.drawFrame();
+    }
+
     onMouseWheel = (e) => {
         e.preventDefault();
         if (e.ctrlKey) {

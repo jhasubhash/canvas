@@ -5,14 +5,14 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { withStyles } from '@material-ui/core/styles';
 import CreateIcon from '@material-ui/icons/Create';
 import PaletteIcon from '@material-ui/icons/Palette';
-import OpacityIcon from '@material-ui/icons/Opacity';
-import DeleteIcon from '@material-ui/icons/Delete';
+/*import OpacityIcon from '@material-ui/icons/Opacity';
 import ColorizeIcon from '@material-ui/icons/Colorize';
-import Eraser from 'mdi-material-ui/Eraser';
 import Shape from 'mdi-material-ui/Shape';
+import OpacitySliderView from './customView/OpacitySliderView';*/
+import DeleteIcon from '@material-ui/icons/Delete';
+import Eraser from 'mdi-material-ui/Eraser';
 import StrokeSliderView from './customView/StrokeSliderView';
 import EraserSliderView from './customView/EraserSliderView';
-import OpacitySliderView from './customView/OpacitySliderView';
 import ColorPickerView from './customView/ColorPickerView';
 import styles from './Toolbar.css'
 
@@ -123,6 +123,10 @@ class Toolbar extends React.Component {
         this.enableColorPalette = !this.enableColorPalette;
         this.forceUpdate();
     }
+
+    handleClearCanvas = () => {
+        this.props.loaderRef.clearCanvas();
+    }
     
     render(){
         const { classes } = this.props;
@@ -135,11 +139,11 @@ class Toolbar extends React.Component {
             >
                 <Button title="Pen" onClick={this.handleStrokeSlider}><CreateIcon/></Button>
                 <Button title="Eraser" onClick={this.handleEraserSlider}><Eraser/></Button>
-                <Button title="Opacity" onClick={this.handleOpacitySlider}><OpacityIcon/></Button>
+                {/*<Button title="Opacity" onClick={this.handleOpacitySlider}><OpacityIcon/></Button>*/}
                 <Button title="Color Palette" onClick={this.handleColorPalette}><PaletteIcon/></Button>
-                <Button title="Color Picker"><ColorizeIcon/></Button>
-                <Button title="Shapes"><Shape/></Button>
-                <Button title="Clear Canvas"><DeleteIcon/></Button>
+                {/*<Button title="Color Picker"><ColorizeIcon/></Button>
+                <Button title="Shapes"><Shape/></Button>*/}
+                <Button title="Clear Canvas" onClick={this.handleClearCanvas} ><DeleteIcon/></Button>
             </ButtonGroup>
             <div className={styles.slider} ref = {node => this.node = node}>
             {this.enableStrokeSlider && <StrokeSliderView 
@@ -154,12 +158,16 @@ class Toolbar extends React.Component {
                                             getLastEraserWidth = {this.getLastEraserWidth}
                                             loader={this.props.loaderRef}
                                         />}
-            {this.enableOpacitySlider && <OpacitySliderView 
+            {/*this.enableOpacitySlider && <OpacitySliderView 
                                             setLastOpacity = {this.setLastOpacity}
                                             getLastOpacity = {this.getLastOpacity}
                                             loader={this.props.loaderRef}
+            />*/}
+            {this.enableColorPalette && <ColorPickerView 
+                                            setLastColor = {this.setLastColor} 
+                                            getLastColor = {this.getLastColor}
+                                            loader={this.props.loaderRef}
                                         />}
-            {this.enableColorPalette && <ColorPickerView loader={this.props.loaderRef}/>}
             </div>
         </div>
     }
