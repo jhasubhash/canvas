@@ -8,33 +8,39 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SliderView() {
+function valuetext(value) {
+  return `${value}`;
+}
+
+export default function OpacitySliderView(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(30);
+  const [value, setValue] = React.useState(props.getLastOpacity());
 
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
+    props.loader.setOpacity(newValue);
   };
 
-  const handleInputChange = (event) => {
-    setValue(event.target.value === '' ? '' : Number(event.target.value));
-  };
-
-  const handleBlur = () => {
-    if (value < 0) {
-      setValue(0);
-    } else if (value > 100) {
-      setValue(100);
+  React.useEffect(function() {
+    props.loader.setOpacity(props.getLastOpacity());
+    return function cleanup() {
+      props.getLastOpacity(props.loader.getOpacity());
     }
-  };
+  }, [props]);
 
   return (
     <div className={classes.root}>
         <Slider
+        defaultValue={value}
         orientation="vertical"
         value={typeof value === 'number' ? value : 0}
         onChange={handleSliderChange}
         aria-labelledby="vertical-slider"
+        getAriaValueText={valuetext}
+        step={0.25}
+        min={0.25}
+        max={100}
+        valueLabelDisplay="auto"
         />
     </div>
   );

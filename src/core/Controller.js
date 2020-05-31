@@ -3,20 +3,20 @@ let zoomIntensity = 0.2;
 let scale = 1;
 let originx = 0;
 let originy = 0;
-let visibleWidth = 0;
-let visibleHeight = 0;
 
-class Listener {
+class Controller {
     constructor(){
-        if (!Listener.instance){
-            Listener.instance = this;
+        if (!Controller.instance){
+            Controller.instance = this;
             this.canvasKit = null;
             this.paints = [];
             this.paths = [];
             this.hold = false;
             this.path = null;
+            this.strokeColor = {'r':0,'g':0,'b':0,'a':1};
+            this.strokeWidth = 1;
         }
-        return Listener.instance;
+        return Controller.instance;
     }
 
     Init(canvaskit, canvas){
@@ -25,10 +25,34 @@ class Listener {
         this.surface = this.canvasKit.MakeCanvasSurface(this.canvas.id);
         this.context = this.canvasKit.currentContext();
         this.skcanvas = this.surface.getCanvas();
+        this.opacityVal = 1;
         this.addListeners();
         this.drawFrame();
     }
 
+    setOpacity(val){
+        this.opacityVal = val;
+    }
+
+    getOpacity(){
+        return this.opacityVal;
+    }
+
+    setStrokeWidth(val){
+        this.strokeWidth = val;
+    }
+
+    getStrokeWidth(){
+        return this.strokeWidth;
+    }
+
+    setStrokeColor(val){
+        this.strokeColor = val;
+    }
+
+    getStrokeColor(){
+        return this.strokeColor;
+    }
     addListeners(){
         this.canvas.addEventListener('mousemove', this.onMouseMove);
         this.canvas.addEventListener('wheel', this.onMouseWheel, false);
@@ -86,11 +110,11 @@ class Listener {
         } else {
             let paint = new this.canvasKit.SkPaint();
             paint.setAntiAlias(true);
-            paint.setColor(this.canvasKit.Color(0, 0, 0, 1.0));
+            let clr = this.strokeColor;
+            paint.setColor(this.canvasKit.Color(clr.r, clr.g, clr.b, clr.a));
             paint.setStyle(this.canvasKit.PaintStyle.Stroke);
-            paint.setStrokeWidth(2.0);
+            paint.setStrokeWidth(this.strokeWidth);
             paint.setPathEffect(this.canvasKit.SkPathEffect.MakeCorner(50));
-            paint.setColor(this.canvasKit.Color(Math.random() * 255, Math.random() * 255, Math.random() * 255, Math.random() + .2));
             this.paints.push(paint);
             let path = new this.canvasKit.SkPath();
             this.paths.push(path);
@@ -109,4 +133,4 @@ class Listener {
     }
 
 }
-export default new Listener();
+export default new Controller();

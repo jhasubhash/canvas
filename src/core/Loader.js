@@ -1,4 +1,4 @@
-import Listener from './Listeners';
+import Controller from './Controller';
 class Loader {
     constructor(){
         if (!Loader.instance){
@@ -14,8 +14,33 @@ class Loader {
 
     initCanvas(CanvasKit, canvas){
         this.initHtmlCanvas(canvas);
-        Listener.Init(CanvasKit, canvas);
+        Controller.Init(CanvasKit, canvas);
     }
+
+    setOpacity(val){
+        Controller.setOpacity(val);
+    }
+
+    getOpacity(){
+        return Controller.getOpacity();
+    }
+
+    setStrokeWidth(val){
+        Controller.setStrokeWidth(val);
+    }
+
+    getStrokeWidth(){
+        return Controller.getStrokeWidth();
+    }
+
+    setStrokeColor(val){
+        Controller.setStrokeColor(val);
+    }
+
+    getStrokeColor(){
+        return Controller.getStrokeColor();
+    }
+    
 }
 
 export let loader = new Loader();

@@ -11,7 +11,7 @@ export default class Canvas extends React.Component {
 
     componentDidMount() {
         const canvas = this.canvasRef.current
-        this.canvasModel.loadCanvasKit(canvas);
+        this.canvasModel.loadCanvasKit(canvas, this.props.loaderRef);
     }
 
     render(){
