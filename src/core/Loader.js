@@ -44,6 +44,10 @@ class Loader {
     clearCanvas(){
         Controller.clearCanvas();
     }
+
+    undo(){
+        Controller.undo();
+    }
     
 }
 

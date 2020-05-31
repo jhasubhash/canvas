@@ -5,6 +5,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { withStyles } from '@material-ui/core/styles';
 import CreateIcon from '@material-ui/icons/Create';
 import PaletteIcon from '@material-ui/icons/Palette';
+import UndoIcon from '@material-ui/icons/Undo';
 /*import OpacityIcon from '@material-ui/icons/Opacity';
 import ColorizeIcon from '@material-ui/icons/Colorize';
 import Shape from 'mdi-material-ui/Shape';
@@ -14,15 +15,16 @@ import Eraser from 'mdi-material-ui/Eraser';
 import StrokeSliderView from './customView/StrokeSliderView';
 import EraserSliderView from './customView/EraserSliderView';
 import ColorPickerView from './customView/ColorPickerView';
-import styles from './Toolbar.css'
+import './Toolbar.css'
 
 const uiStyles = (theme) => ({
     root: {
       display: 'flex',
+      flexDirection: 'column',
       '& > *': {
         margin: theme.spacing(1),
       },
-      width: "fit-content",
+      width: 'fit-content'
     },
 });
 
@@ -127,47 +129,61 @@ class Toolbar extends React.Component {
     handleClearCanvas = () => {
         this.props.loaderRef.clearCanvas();
     }
+
+    handleUndo = ()=> {
+        this.props.loaderRef.undo();
+    }
     
     render(){
         const { classes } = this.props;
-        return <div className={classes.root}>
-            <ButtonGroup
-                orientation="vertical"
-                color="primary"
-                aria-label="vertical outlined primary button group"
-                variant="contained"
-            >
-                <Button title="Pen" onClick={this.handleStrokeSlider}><CreateIcon/></Button>
-                <Button title="Eraser" onClick={this.handleEraserSlider}><Eraser/></Button>
-                {/*<Button title="Opacity" onClick={this.handleOpacitySlider}><OpacityIcon/></Button>*/}
-                <Button title="Color Palette" onClick={this.handleColorPalette}><PaletteIcon/></Button>
-                {/*<Button title="Color Picker"><ColorizeIcon/></Button>
-                <Button title="Shapes"><Shape/></Button>*/}
-                <Button title="Clear Canvas" onClick={this.handleClearCanvas} ><DeleteIcon/></Button>
-            </ButtonGroup>
-            <div className={styles.slider} ref = {node => this.node = node}>
-            {this.enableStrokeSlider && <StrokeSliderView 
-                                            setLastColor = {this.setLastColor} 
-                                            getLastColor = {this.getLastColor}
-                                            setLastStrokeWidth = {this.setLastStrokeWidth}
-                                            getLastStrokeWidth = {this.getLastStrokeWidth}
-                                            loader = {this.props.loaderRef}
-                                        />}
-            {this.enableEraserSlider && <EraserSliderView 
-                                            setLastEraserWidth = {this.setLastEraserWidth}
-                                            getLastEraserWidth = {this.getLastEraserWidth}
-                                            loader={this.props.loaderRef}
-                                        />}
-            {/*this.enableOpacitySlider && <OpacitySliderView 
-                                            setLastOpacity = {this.setLastOpacity}
-                                            getLastOpacity = {this.getLastOpacity}
-                                            loader={this.props.loaderRef}
-            />*/}
-            {this.enableColorPalette && <ColorPickerView 
-                                            setLastColor = {this.setLastColor} 
-                                            getLastColor = {this.getLastColor}
-                                            loader={this.props.loaderRef}
-                                        />}
+        return <div className={'rowC'}>
+            <div className={classes.root}>
+                <ButtonGroup
+                    orientation="vertical"
+                    color="primary"
+                    aria-label="vertical outlined primary button group"
+                    variant="contained"
+                >
+                    <Button title="Pen" onClick={this.handleStrokeSlider}><CreateIcon/></Button>
+                    <Button title="Eraser" onClick={this.handleEraserSlider}><Eraser/></Button>
+                    {/*<Button title="Opacity" onClick={this.handleOpacitySlider}><OpacityIcon/></Button>*/}
+                    <Button title="Color Palette" onClick={this.handleColorPalette}><PaletteIcon/></Button>
+                    {/*<Button title="Color Picker"><ColorizeIcon/></Button>
+                    <Button title="Shapes"><Shape/></Button>*/}
+                    <Button title="Clear Canvas" onClick={this.handleClearCanvas} ><DeleteIcon/></Button>
+                </ButtonGroup>
+                <ButtonGroup
+                    orientation="vertical"
+                    color="primary"
+                    aria-label="vertical outlined primary button group"
+                    variant="contained"
+                >
+                    <Button title="Undo" onClick={this.handleUndo}><UndoIcon/></Button>
+                </ButtonGroup>
+            </div>
+            <div className={'sliderC'} ref = {node => this.node = node}>
+                {this.enableStrokeSlider && <StrokeSliderView 
+                                                setLastColor = {this.setLastColor} 
+                                                getLastColor = {this.getLastColor}
+                                                setLastStrokeWidth = {this.setLastStrokeWidth}
+                                                getLastStrokeWidth = {this.getLastStrokeWidth}
+                                                loader = {this.props.loaderRef}
+                                            />}
+                {this.enableEraserSlider && <EraserSliderView 
+                                                setLastEraserWidth = {this.setLastEraserWidth}
+                                                getLastEraserWidth = {this.getLastEraserWidth}
+                                                loader={this.props.loaderRef}
+                                            />}
+                {/*this.enableOpacitySlider && <OpacitySliderView 
+                                                setLastOpacity = {this.setLastOpacity}
+                                                getLastOpacity = {this.getLastOpacity}
+                                                loader={this.props.loaderRef}
+                />*/}
+                {this.enableColorPalette && <ColorPickerView 
+                                                setLastColor = {this.setLastColor} 
+                                                getLastColor = {this.getLastColor}
+                                                loader={this.props.loaderRef}
+                                            />}
             </div>
         </div>
     }

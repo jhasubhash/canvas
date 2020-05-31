@@ -65,6 +65,13 @@ class Controller {
         this.drawFrame();
     }
 
+    undo(){
+        if(this.paths.length)
+            this.paths.pop();
+        if(this.paints.length)
+            this.paints.pop();
+    }
+
     onMouseWheel = (e) => {
         e.preventDefault();
         if (e.ctrlKey) {

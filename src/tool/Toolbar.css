@@ -3,6 +3,9 @@
     width: "fit-content";
 }
 .rowC{
-    display:flex; 
-    flex-direction:row;
-  }
+    display:flex;
+}
+
+.sliderC{
+    display:flex;
+}
