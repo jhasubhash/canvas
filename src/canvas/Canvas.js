@@ -1,7 +1,6 @@
 import React from 'react';
 import {CanvasModel} from './CanvasModel';
-import logo from '../logo.svg';
-import "./Canvas.css"
+import './Canvas.css'
 
 export default class Canvas extends React.Component {
     constructor(props) {
