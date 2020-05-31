@@ -1,7 +1,7 @@
 import React from 'react';
 // import { observable, computed, action, decorate } from "mobx";
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { withStyles } from '@material-ui/core/styles';
 import CreateIcon from '@material-ui/icons/Create';
 import PaletteIcon from '@material-ui/icons/Palette';
@@ -37,6 +37,9 @@ class Toolbar extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            view: 'undefined'
+        };
         this.lastColor = props.loaderRef.getStrokeColor();
         this.lastStrokeWidth = props.loaderRef.getStrokeWidth();
         this.lastEraserWidth = props.loaderRef.getStrokeWidth();
@@ -133,33 +136,39 @@ class Toolbar extends React.Component {
     handleUndo = ()=> {
         this.props.loaderRef.undo();
     }
-    
+
+    handleChange = (event, nextView) => {
+        if(nextView !== null)
+            this.setState({ view: nextView});
+    };
+
     render(){
         const { classes } = this.props;
         return <div className={'rowC'}>
             <div className={classes.root}>
-                <ButtonGroup
+                <ToggleButtonGroup
                     orientation="vertical"
-                    color="primary"
                     aria-label="vertical outlined primary button group"
                     variant="contained"
+                    value={this.state.view} 
+                    exclusive 
+                    onChange={this.handleChange}
                 >
-                    <Button title="Pen" onClick={this.handleStrokeSlider}><CreateIcon/></Button>
-                    <Button title="Eraser" onClick={this.handleEraserSlider}><Eraser/></Button>
+                    <ToggleButton title="Pen" value="Pen" onClick={this.handleStrokeSlider}><CreateIcon/></ToggleButton>
+                    <ToggleButton title="Eraser" value="Eraser" onClick={this.handleEraserSlider}><Eraser/></ToggleButton>
                     {/*<Button title="Opacity" onClick={this.handleOpacitySlider}><OpacityIcon/></Button>*/}
-                    <Button title="Color Palette" onClick={this.handleColorPalette}><PaletteIcon/></Button>
+                    <ToggleButton title="Color Palette" onClick={this.handleColorPalette}><PaletteIcon/></ToggleButton>
                     {/*<Button title="Color Picker"><ColorizeIcon/></Button>
                     <Button title="Shapes"><Shape/></Button>*/}
-                    <Button title="Clear Canvas" onClick={this.handleClearCanvas} ><DeleteIcon/></Button>
-                </ButtonGroup>
-                <ButtonGroup
+                    <ToggleButton title="Clear Canvas" onClick={this.handleClearCanvas} ><DeleteIcon/></ToggleButton>
+                </ToggleButtonGroup>
+                <ToggleButtonGroup
                     orientation="vertical"
-                    color="primary"
                     aria-label="vertical outlined primary button group"
                     variant="contained"
                 >
-                    <Button title="Undo" onClick={this.handleUndo}><UndoIcon/></Button>
-                </ButtonGroup>
+                    <ToggleButton title="Undo" onClick={this.handleUndo}><UndoIcon/></ToggleButton>
+                </ToggleButtonGroup>
             </div>
             <div className={'sliderC'} ref = {node => this.node = node}>
                 {this.enableStrokeSlider && <StrokeSliderView 
