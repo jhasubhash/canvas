@@ -170,7 +170,7 @@ class Toolbar extends React.Component {
                 >
                     <ToggleButton title="Pen" value="Pen" onClick={this.handleStrokeSlider} ><CreateIcon/></ToggleButton>
                     <ToggleButton title="Eraser" value="Eraser" onClick={this.handleEraserSlider}><Eraser/></ToggleButton>
-                    <ToggleButton title="Pan" value="Pan"><PanToolIcon/></ToggleButton>
+                    {/*<ToggleButton title="Pan" value="Pan"><PanToolIcon/></ToggleButton>*/}
                     {/*<Button title="Opacity" onClick={this.handleOpacitySlider}><OpacityIcon/></Button>*/}
                     <ToggleButton title="Color Palette" value="Color Palette" onClick={this.handleColorPalette}><PaletteIcon/></ToggleButton>
                     {/*<Button title="Color Picker"><ColorizeIcon/></Button>
