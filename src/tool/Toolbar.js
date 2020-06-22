@@ -39,7 +39,7 @@ class Toolbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            view: 'undefined'
+            view: 'Pen'
         };
         this.lastColor = props.loaderRef.getStrokeColor();
         this.lastStrokeWidth = props.loaderRef.getStrokeWidth();
